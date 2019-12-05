@@ -20,6 +20,10 @@ public class GatewayApplication {
                         .filters(f -> f.addRequestHeader("X-Foo", "Bar"))
                         .uri("http://httpbin.org")
                 )
+                .route("host", r -> r.host("{sub}.myhost.org")
+                        .filters(f -> f.addRequestHeader("X-Foo", "Bar-{sub}"))
+                        .uri("http://httpbin.org")
+                )
                 .build();
     }
 }
