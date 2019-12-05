@@ -28,15 +28,15 @@ public class GatewayApplication {
                         .filters(f -> f.addRequestHeader("X-Foo", "Bar-{sub}"))
                         .uri("http://httpbin.org")
                 )
-                .route("websocket", r -> r.path("/echo")
-                        .uri("ws://localhost:9000")
-                )
-                .route("websocket", r -> r.host("**.hystrix.org")
+                .route("hystrix", r -> r.host("**.hystrix.org")
                         .filters(f -> f.hystrix(
                                 c -> c.setName("mycircuit")
                                 .setFallbackUri("forward:/myfallback")))
                         .uri("http://httpbin.org")
 
+                )
+                .route("websockets", r -> r.path("/echo")
+                        .uri("ws://localhost:9000")
                 )
                 .build();
     }
